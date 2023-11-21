@@ -9,7 +9,6 @@ import { isSameDay, getDayOfWeek } from "@internationalized/date";
 import { CalendarState, RangeCalendarState } from "react-stately";
 
 type ExtraProps = Parameters<typeof useCalendarCell>[0];
-type CalendarState2 = Parameters<typeof useCalendarCell>[1];
 type CalendarDate = ExtraProps["date"];
 type CalendarCellProps = {
   date: CalendarDate;
@@ -45,6 +44,10 @@ export function CalendarCell({ state, date }: CalendarCellProps) {
   let dayOfWeek = getDayOfWeek(date, locale);
   let isRoundedLeft =
     isSelected && (isSelectionStart || dayOfWeek === 0 || date.day === 1);
+  console.log("isRoundedLeft", isRoundedLeft);
+  console.log("isSelected", isSelected);
+  console.log("isselectionStart", isSelectionStart);
+
   let isRoundedRight =
     isSelected &&
     (isSelectionEnd ||
@@ -62,7 +65,7 @@ export function CalendarCell({ state, date }: CalendarCellProps) {
         {...mergeProps(buttonProps, focusProps)}
         ref={ref}
         hidden={isOutsideVisibleRange}
-        className={`w-10 h-10 outline-none group  text-black${
+        className={`w-10 h-10 outline-none group  text-black ${
           isRoundedLeft ? "rounded-l-full" : ""
         } ${isRoundedRight ? "rounded-r-full" : ""} ${
           isSelected ? (isInvalid ? "bg-red-300" : "bg-sky-300") : ""
