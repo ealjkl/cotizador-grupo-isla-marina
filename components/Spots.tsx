@@ -11,8 +11,9 @@ const SvgVectoresMarinaWbg4 = (
     xmlSpace="preserve"
     id="spots"
     width={1000}
-    height={1000}
-    viewBox="-600 -5 900 1100"
+    // height={1000}
+    viewBox={`${props.viewBox}`}
+    // viewBox="-600 -5 1000 1100"
     ref={ref}
     {...props}
   >

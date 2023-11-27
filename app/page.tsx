@@ -1,5 +1,6 @@
 import AppForm from "@/components/AppForm";
 import Background from "@/components/Background";
+import getSpots, { getGeneral, getPrices } from "@/utils/getData";
 
 export type SpotsData = {
   [spotNumber: string]: {
@@ -34,10 +35,17 @@ async function getMockStpotData(): Promise<SpotsData> {
 }
 
 export default async function Home() {
-  const spotsData = await getMockStpotData();
+  const spotsData = await getSpots();
+  const pricesData = await getPrices();
+  const general = await getGeneral();
+  console.log("pricesData", pricesData);
   return (
-    <main className="flex min-h-screen flex-row items-center justify-center sm:justify-start">
-      <AppForm spotsData={spotsData} />
+    <main className="flex min-h-screen flex-row items-center left-0 flex-wrap justify-center lg:justify-start">
+      <AppForm
+        spotsData={spotsData}
+        pricingData={pricesData}
+        generalData={general}
+      />
       <Background spotsData={spotsData} />
     </main>
   );

@@ -31,7 +31,7 @@ export function AppDateRangePicker(props: AppDateRangePickerProps) {
   } = useDateRangePicker(props, state, ref);
 
   return (
-    <div className="relative inline-flex flex-col text-left w-96 ">
+    <div className="relative inline-flex flex-col text-left w-full">
       <label {...labelProps} className="text-lg ">
         {props.label}
       </label>

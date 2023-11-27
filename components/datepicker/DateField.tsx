@@ -2,6 +2,7 @@ import { useRef, ReactNode } from "react";
 import { useDateFieldState, DateFieldState } from "react-stately";
 import { useDateField, useDateSegment, useLocale } from "react-aria";
 import { createCalendar } from "@internationalized/date";
+import { locale } from "./myLocale";
 
 interface DateFieldProps {}
 
@@ -11,7 +12,7 @@ interface DateSegmentProps {
 }
 
 export function DateField(props: DateFieldProps): JSX.Element {
-  let { locale } = useLocale();
+  // let { locale } = useLocale();
   let state = useDateFieldState({
     ...props,
     locale,

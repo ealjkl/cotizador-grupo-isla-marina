@@ -1,9 +1,10 @@
 import { useCalendarGrid, useLocale } from "react-aria";
 import { getWeeksInMonth } from "@internationalized/date";
 import { CalendarCell } from "./CalendarCell";
+import { locale } from "./myLocale";
 
-export function CalendarGrid({ state, ...props }) {
-  let { locale } = useLocale();
+export function CalendarGrid({ state, ...props }: any) {
+  // let { locale } = useLocale();
   let { gridProps, headerProps, weekDays } = useCalendarGrid(props, state);
 
   // Get the number of weeks in the month so we can render the proper number of rows.

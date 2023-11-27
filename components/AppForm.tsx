@@ -11,24 +11,45 @@ import WhatsappButton from "./WhatsappButton";
 import type { SpotsData } from "@/app/page";
 
 type BoatKind = "Multi Hull" | "Mono Hull" | "Power Boat";
-const pricingMapping = {
-  "Multi Hull": 220,
-  "Mono Hull": 200,
-  "Power Boat": 200,
-} as const;
+// const pricingMapping = {
+//   "Multi Hull": 220,
+//   "Mono Hull": 200,
+//   "Power Boat": 200,
+// } as const;
 
-type AppFormProps = {
-  spotsData: SpotsData;
+type PricingData = {
+  [id: string]: {
+    id: string;
+    price: string;
+  };
 };
 
-export default function AppForm({}: AppFormProps) {
+type GeneralData = {
+  phone: {
+    value: string;
+  };
+};
+
+type AppFormProps = {
+  spotsData?: SpotsData;
+  pricingData: PricingData;
+  generalData: GeneralData;
+};
+
+export default function AppForm({ pricingData, generalData }: AppFormProps) {
   const rangeDatePickerProps = {
     label: "Estancia: ",
     minValue: today(getLocalTimeZone()),
   };
+  const pricingMapping = Object.fromEntries(
+    Object.values(pricingData).map(({ id, price }) => [id, parseFloat(price)])
+  );
   const rangeDateState = useDateRangePickerState(rangeDatePickerProps);
   const days =
-    rangeDateState.value?.end?.compare(rangeDateState.value.start) ?? 0;
+    (rangeDateState.value?.start &&
+      rangeDateState.value.end &&
+      rangeDateState.value.end.compare(rangeDateState.value.start)) ??
+    0;
   const [boatKind, setBoatKind] = useState<BoatKind>("Mono Hull");
   const hasSelectedDateRange =
     rangeDateState.value?.start != null && rangeDateState.value?.end != null;
@@ -52,7 +73,7 @@ export default function AppForm({}: AppFormProps) {
   const price =
     days *
       Math.max(Math.min(pies, maxPies), minPies) *
-      (pricingMapping[boatKind] / 30) +
+      pricingMapping[boatKind] +
     0;
 
   const phoneNumber = "9996586910";
@@ -65,8 +86,10 @@ export default function AppForm({}: AppFormProps) {
   } `;
 
   return (
-    <div className="bg-lime-700 bg-opacity-80 p-2 sm:p-8 row-auto rounded-2xl z-10 sm:mx-[20%] justify-self-center">
-      <h2 className="text-4xl text-center font-medium uppercase">Cotizar</h2>
+    <div className="bg-lime-700 md:bg-opacity-80 px-2 py-8 sm:p-8 row-auto md:rounded-2xl z-10 md:mx-[calc(10%)] justify-self-center w-full md:w-fit h-[100vh] lg:h-fit flex flex-col justify-end sm:justify-center items-center">
+      <h2 className="text-6xl sm:text-4xl text-center font-medium uppercase mb-auto sm:mb-0">
+        Cotizar
+      </h2>
       <form
         className="p-2 flex flex-col gap-2 "
         onSubmit={(ev) => {
@@ -119,10 +142,15 @@ export default function AppForm({}: AppFormProps) {
           />
         </div>
         <section className="flex flex-row justify-end">
-          <p className="text-5xl my-7">{formatMoney(price)}</p>
+          {
+            <p className="text-5xl my-7">
+              {rangeDateState.isInvalid ? formatMoney(0) : formatMoney(price)}
+            </p>
+          }
+          {/* <p className="text-5xl my-7">{formatMoney(price)}</p> */}
         </section>
         <WhatsappButton
-          phoneNumber={phoneNumber}
+          phoneNumber={generalData.phone.value}
           message={message}
           target="_blank"
           className="bg-sky-900 hover:bg-sky-800 rounded-full py-2 text-xl uppercase font-bold px-6 self-center"
