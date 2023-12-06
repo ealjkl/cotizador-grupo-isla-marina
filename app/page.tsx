@@ -1,9 +1,10 @@
-import AppForm from "@/components/AppForm";
+// import AppForm from "@/components/AppForm";
 import Background from "@/components/Background";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { SpotProvider } from "@/features/spots";
 import getSpots, { getGeneral, getPrices } from "@/utils/getData";
 import { getExchange } from "@/utils/getExchange";
+import dynamic from "next/dynamic";
 
 export type SpotsData = {
   [spotNumber: string]: {
@@ -37,6 +38,7 @@ async function getMockStpotData(): Promise<SpotsData> {
   };
 }
 
+const AppForm = dynamic(() => import("../components/AppForm"), { ssr: false });
 export default async function Home() {
   const spotsData = await getSpots();
   const pricesData = await getPrices();

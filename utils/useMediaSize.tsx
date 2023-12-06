@@ -1,32 +1,28 @@
 "use client";
-import { useMediaQuery } from "@chakra-ui/react";
+// import { useMediaQuery } from "@chakra-ui/react";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
+const options = {
+  ssr: false,
+  fallback: false,
+} as const;
 
 export function useMediaSize() {
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 639px)", {
-    ssr: true,
-    fallback: false,
-  });
+  const isSmallDevice = useMediaQuery(
+    "only screen and (max-width : 639px)",
+    options
+  );
   const isMediumDevice = useMediaQuery(
     "only screen and (min-width : 640px) and (max-width : 939px)",
-    {
-      ssr: true,
-      fallback: false,
-    }
+    options
   );
   const isLargeDevice = useMediaQuery(
     "only screen and (min-width : 940px) and (max-width : 1540px)",
-    {
-      ssr: true,
-      fallback: false,
-    }
+    options
   );
   const isExtraLargeDevice = useMediaQuery(
     "only screen and (min-width : 1541px)",
-    {
-      ssr: true,
-      fallback: false,
-    }
+    options
   );
 
   return {
