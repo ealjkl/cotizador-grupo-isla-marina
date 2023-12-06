@@ -128,11 +128,11 @@ function MediumVersion({
   console.log("renderig medium");
   return (
     <>
-      <h2 className="text-6xl m-14 text-center">{t("cotizar")}</h2>
+      <h2 className="text-6xl m-8 text-center">{t("cotizar")}</h2>
       <Modal isOpen={isOpen}>
         <AriaDialog aria-label="cotizador">
           <div
-            className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100svh] lg:h-fit flex flex-col  justify-end sm:justify-center items-center fixed top-0 left-0 z-1`}
+            className={`bg-lime-700 lg:bg-opacity-80 px-1 py-8 sm:p-8 row-auto lg:rounded-2xl lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100svh] lg:h-fit flex flex-col  justify-end sm:justify-center items-center fixed top-0 left-0 z-1`}
           >
             <div className="flex justify-end self-end">
               <button

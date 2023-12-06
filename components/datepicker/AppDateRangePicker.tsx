@@ -39,9 +39,9 @@ export function AppDateRangePicker(props: AppDateRangePickerProps) {
       <div {...groupProps} ref={ref} className="flex group text-black">
         <div
           className="flex bg-white border border-gray-300 group-hover:border-gray-400  rounded-full group-focus-within:border-sky-600 group-focus-within:group-hover:border-sky-600 px-3 relative -mx-3 w-[120%]
-        h-10
-        items-center
-        "
+          h-10
+          items-center
+          "
           onClick={(ev) => {
             ev.preventDefault();
             ev.stopPropagation();

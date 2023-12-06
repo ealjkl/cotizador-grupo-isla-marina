@@ -48,14 +48,15 @@ function DateSegment({ segment, state }: DateSegmentProps): JSX.Element {
             ? String(segment.maxValue).length + "ch"
             : undefined,
       }}
-      className={`px-0.5 box-content tabular-nums text-right outline-none rounded-sm focus:bg-sky-600 focus:text-white group ${
+      className={`px-[0.05rem] md:px-0.5 box-content tabular-nums text-right outline-none rounded-sm focus:bg-sky-600 focus:text-white group ${
         !segment.isEditable ? "text-gray-500" : "text-gray-800"
-      }`}
+      }
+      text-base`}
     >
       {/* Always reserve space for the placeholder, to prevent layout shift when editing. */}
       <span
         aria-hidden="true"
-        className="block w-full text-center italic text-gray-500 group-focus:text-white"
+        className="block w-full text-center italic text-gray-500 group-focus:text-white text-sm md:text-base"
         style={{
           visibility: segment.isPlaceholder ? undefined : "hidden",
           height: segment.isPlaceholder ? "" : 0,

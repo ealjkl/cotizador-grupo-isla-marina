@@ -76,7 +76,7 @@ export function InnerForm({
 
   return (
     <form
-      className="lg:p-2 flex flex-col gap-2 w-[80%] lg:min-w-[400px]"
+      className="lg:p-2 flex flex-col gap-2 w-[90%] lg:min-w-[400px]"
       onSubmit={(ev) => {
         ev.preventDefault();
       }}
