@@ -63,9 +63,12 @@ export function AppDateRangePicker(props: AppDateRangePickerProps) {
           isOpen={state.isOpen}
           triggerRef={ref}
           onOpenChange={(open: boolean) => state.setOpen(open)}
-          className="bg-white border border-gray-300 rounded-md shadow-lg mt-2 p-8"
+          className="bg-white border border-gray-300 rounded-md shadow-lg mt-2 p-8 overflow-auto"
+          style={{
+            overflow: "auto",
+          }}
         >
-          <Dialog {...dialogProps} aria-label="datepicker" className="">
+          <Dialog {...dialogProps} aria-label="datepicker">
             <RangeCalendar {...calendarProps} />
           </Dialog>
         </Popover>
