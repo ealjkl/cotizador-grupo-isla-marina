@@ -54,7 +54,7 @@ function ExtraLargeBackground({ spotsData, onClick }: BackgroundProps) {
           viewBox={`-500 -50 1000 1200`}
           style={{
             width: "calc(min(1500px, 90%))",
-            height: "calc(max(100vh, 900px))",
+            height: "calc(max(100svh, 900px))",
             // height: "100vh",
             // transform: "translateX(calc(-20px - 20vw))",
           }}
@@ -84,7 +84,7 @@ function LargeBackground({ spotsData, onClick }: BackgroundProps) {
         viewBox={`${computeX()} -50 1000 1200`}
         style={{
           width: "2000px",
-          height: "calc(max(100vh, 700px))",
+          height: "calc(max(100svh, 700px))",
           // height: "100vh",
           // transform: "translateX(calc(-20px - 20vw))",
         }}

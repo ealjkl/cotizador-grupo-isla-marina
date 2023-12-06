@@ -133,7 +133,7 @@ function MediumVersion({
         <AriaDialog>
           <Heading>{t("cotizar")}</Heading>
           <div
-            className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100vh] lg:h-fit flex flex-col  justify-end sm:justify-center items-center fixed top-0 left-0 z-1`}
+            className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100svh] lg:h-fit flex flex-col  justify-end sm:justify-center items-center fixed top-0 left-0 z-1`}
           >
             <div className="flex justify-end self-end">
               <button
@@ -170,7 +170,7 @@ function SmallVersion({
         <Dialog.Overlay />
         <Dialog.Content>
           <div
-            className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100vh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center fixed top-0 left-0`}
+            className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100svh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center fixed top-0 left-0`}
           >
             <div className="flex justify-end self-end">
               <button
@@ -201,7 +201,7 @@ function ContentSpotSelected({
   return (
     <>
       <div
-        className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(16%)] justify-self-center w-full lg:w-auto h-[100vh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center relative`}
+        className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(16%)] justify-self-center w-full lg:w-auto h-[100svh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center relative`}
       >
         <CotizarTitle />
         <InnerForm
@@ -224,7 +224,7 @@ function ContentSpotNotSelected({
   return (
     <>
       <div
-        className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(20%)] justify-self-center w-full lg:w-80 h-[100vh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center relative`}
+        className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(20%)] justify-self-center w-full lg:w-80 h-[100svh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center relative`}
       >
         <h2 className="text-3xl">{t("selecciona")}</h2>
       </div>
