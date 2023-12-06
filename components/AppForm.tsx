@@ -133,7 +133,7 @@ function MediumVersion({
         <AriaDialog>
           <Heading>{t("cotizar")}</Heading>
           <div
-            className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100vh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center fixed top-0 left-0 z-1`}
+            className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100vh] lg:h-fit flex flex-col  justify-end sm:justify-center items-center fixed top-0 left-0 z-1`}
           >
             <div className="flex justify-end self-end">
               <button
@@ -150,42 +150,6 @@ function MediumVersion({
           </div>
         </AriaDialog>
       </Modal>
-    </>
-  );
-}
-
-function MediumVersion2({
-  generalData,
-  pricingData,
-  spotsData,
-  innerForm,
-}: AppFormProps & { innerForm: React.ReactNode }) {
-  const { selected, setSelected } = useContext(SpotContext)!;
-  const { t } = useTexts();
-  return (
-    <>
-      <h2 className="text-6xl m-14">{t("cotizar")}</h2>
-      <Dialog.Root open={selected != null}>
-        <Dialog.Overlay />
-        <Dialog.Content>
-          <div
-            className={`bg-red-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100vh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center fixed top-0 left-0`}
-          >
-            <div className="flex justify-end self-end">
-              <button
-                className="text-5xl"
-                onClick={() => {
-                  setSelected(null);
-                }}
-              >
-                <IoCloseOutline />
-              </button>
-            </div>
-            <CotizarTitle />
-            {innerForm}
-          </div>
-        </Dialog.Content>
-      </Dialog.Root>
     </>
   );
 }
@@ -271,7 +235,7 @@ function ContentSpotNotSelected({
 function CotizarTitle() {
   const { t } = useTexts();
   return (
-    <h2 className="text-6xl sm:text-4xl text-center font-medium uppercase mb-auto mt-10 sm:mb-0">
+    <h2 className="text-6xl sm:text-4xl text-center font-medium uppercase mb-auto mt-10 sm:mb-0 flex-shrink-0">
       {t("cotizar")}
     </h2>
   );
