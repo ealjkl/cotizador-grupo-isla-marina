@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CiCalendarDate } from "react-icons/ci";
 import { DateRangePickerAria } from "@react-aria/datepicker";
 import { AppDateRangePicker } from "./datepicker/AppDateRangePicker";
@@ -9,6 +9,12 @@ import { formatMoney } from "@/utils/moneyFormater";
 import formatNumber from "@/utils/formatNumber";
 import WhatsappButton from "./WhatsappButton";
 import type { SpotsData } from "@/app/page";
+import { SelectGroup } from "./SelectGroup";
+import { InputGroup } from "./InputGroup";
+import useNumericValue from "@/utils/useNumericValue";
+import { SpotContext } from "@/features/spots";
+import { useMediaSize } from "@/utils/useMediaSize";
+import { IoCloseOutline } from "react-icons/io5";
 
 type BoatKind = "Multi Hull" | "Mono Hull" | "Power Boat";
 // const pricingMapping = {
@@ -36,7 +42,50 @@ type AppFormProps = {
   generalData: GeneralData;
 };
 
-export default function AppForm({ pricingData, generalData }: AppFormProps) {
+export default function AppForm({
+  pricingData,
+  generalData,
+  spotsData,
+}: AppFormProps) {
+  const { selected, setSelected } = useContext(SpotContext)!;
+  const { isExtraLargeDevice, isLargeDevice, isMediumDevice, isSmallDevice } =
+    useMediaSize();
+  return (
+    <ShowIf
+      condition={
+        isLargeDevice ||
+        isExtraLargeDevice ||
+        isMediumDevice ||
+        selected != null
+      }
+    >
+      <div
+        className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(10%)] justify-self-center w-full lg:w-auto h-[100vh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center relative`}
+      >
+        {selected != null ? (
+          <ContentSpotSelected
+            generalData={generalData}
+            pricingData={pricingData}
+            spotsData={spotsData}
+          />
+        ) : (
+          <ContentSpotNotSelected
+            generalData={generalData}
+            pricingData={pricingData}
+            spotsData={spotsData}
+          />
+        )}
+      </div>
+    </ShowIf>
+  );
+}
+
+type ContentSpotSelectedProps = {} & AppFormProps;
+function ContentSpotSelected({
+  generalData,
+  pricingData,
+  spotsData,
+}: ContentSpotSelectedProps) {
   const rangeDatePickerProps = {
     label: "Estancia: ",
     minValue: today(getLocalTimeZone()),
@@ -53,6 +102,7 @@ export default function AppForm({ pricingData, generalData }: AppFormProps) {
   const [boatKind, setBoatKind] = useState<BoatKind>("Mono Hull");
   const hasSelectedDateRange =
     rangeDateState.value?.start != null && rangeDateState.value?.end != null;
+  const { selected, setSelected } = useContext(SpotContext)!;
 
   const maxPies = 9999;
   const minPies = 0;
@@ -76,7 +126,6 @@ export default function AppForm({ pricingData, generalData }: AppFormProps) {
       pricingMapping[boatKind] +
     0;
 
-  const phoneNumber = "9996586910";
   const message = `Hola! Me gustaría reservar un lote ${
     !piesHasError ? `de ${pies} pies` : ""
   } ${
@@ -84,9 +133,18 @@ export default function AppForm({ pricingData, generalData }: AppFormProps) {
       ? `del ${rangeDateState.value?.start?.toString()} al ${rangeDateState.value?.end?.toString()}`
       : ""
   } `;
-
   return (
-    <div className="bg-lime-700 md:bg-opacity-80 px-2 py-8 sm:p-8 row-auto md:rounded-2xl z-10 md:mx-[calc(10%)] justify-self-center w-full md:w-fit h-[100vh] lg:h-fit flex flex-col justify-end sm:justify-center items-center">
+    <>
+      <div className="flex justify-end self-end">
+        <button
+          className="text-5xl"
+          onClick={() => {
+            setSelected(null);
+          }}
+        >
+          <IoCloseOutline />
+        </button>
+      </div>
       <h2 className="text-6xl sm:text-4xl text-center font-medium uppercase mb-auto sm:mb-0">
         Cotizar
       </h2>
@@ -158,118 +216,27 @@ export default function AppForm({ pricingData, generalData }: AppFormProps) {
           Reservar
         </WhatsappButton>
       </form>
-    </div>
+    </>
   );
 }
 
-type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
-type InputGroupProps = {
-  label: string;
-  icon?: React.ReactNode;
-  iconProps?: {};
-  inputProps: InputProps & { id: string };
-};
-
-function InputGroup({ inputProps, label, icon }: InputGroupProps) {
+type ContentSpotNotSelectedProps = {} & AppFormProps;
+function ContentSpotNotSelected({
+  generalData,
+  pricingData,
+  spotsData,
+}: ContentSpotNotSelectedProps) {
   return (
-    <div className="flex flex-col flex-1">
-      <label htmlFor={inputProps.id} className="text-lg">
-        {label}
-      </label>
-      <div className="relative flex items-center">
-        <input
-          {...inputProps}
-          className={`rounded-full text-black px-3 -mx-3 tabular-nums h-10 block w-[100%]  ${inputProps.className}`}
-        />
-        <div className="absolute right-0 ">{icon}</div>
-      </div>
-    </div>
+    <>
+      <h2 className="text-3xl">Selecciona un amarre para cotizar.</h2>
+    </>
   );
 }
 
-type SelectOption = {
-  value: string;
-  display: string;
+type ShowIfProps = {
+  condition: boolean;
+  children: React.ReactNode;
 };
-
-type SelectProps = React.DetailedHTMLProps<
-  React.SelectHTMLAttributes<HTMLSelectElement>,
-  HTMLSelectElement
->;
-type SelectGroupProps = {
-  label: string;
-  inputProps: SelectProps & { id: string };
-  options: SelectOption[];
-};
-function SelectGroup({ label, inputProps, options }: SelectGroupProps) {
-  return (
-    <div className="flex flex-col flex-1">
-      <label htmlFor={inputProps.id} className="text-lg">
-        {label}
-      </label>
-      <select
-        name=""
-        {...inputProps}
-        id={inputProps.id}
-        className="rounded-full text-black px-3 py-1 mx-3 text-lg h-10 w-[100%]"
-      >
-        {options.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-            className="text-center"
-          >
-            {option.display}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-function useNumericValue({
-  initialValue,
-  minValue = -Infinity,
-  maxValue = Infinity,
-}: {
-  initialValue: number | string;
-  maxValue?: number;
-  minValue?: number;
-}) {
-  const [valueString, setValueString] = useState<string>(
-    initialValue.toString()
-  );
-
-  const valueParsed = parseFloat(valueString.replaceAll(" ", ""));
-  const value = !Number.isNaN(valueParsed) ? valueParsed : 0;
-
-  const isInvalidNumber =
-    valueString.replaceAll(" ", "") != "" && Number.isNaN(valueParsed);
-  const isLtMin = value < minValue;
-  const isGtMax = value > maxValue;
-  let simpleError: null | string = null;
-  if (isInvalidNumber) {
-    simpleError = "Por favor, provea un número válido";
-  } else if (isGtMax || isLtMin) {
-    simpleError = `${
-      isLtMin ? `El número debe ser menor a ${minValue}.` : ""
-    } ${isGtMax ? `El número debe ser mayor a ${maxValue}` : ""}`;
-  }
-
-  return {
-    value,
-    valueParsed,
-    valueString,
-    setValueString,
-    simpleError,
-    hasError: isGtMax || isInvalidNumber || isLtMin,
-    errors: {
-      isInvalidNumber,
-      isLtMin,
-      isGtMax,
-    },
-  };
+function ShowIf({ children, condition }: ShowIfProps) {
+  return condition ? children : null;
 }

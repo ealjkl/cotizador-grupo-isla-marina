@@ -1,5 +1,7 @@
 import AppForm from "@/components/AppForm";
 import Background from "@/components/Background";
+import BackgroundWrapper from "@/components/BackgroundWrapper";
+import { SpotProvider } from "@/features/spots";
 import getSpots, { getGeneral, getPrices } from "@/utils/getData";
 
 export type SpotsData = {
@@ -41,12 +43,14 @@ export default async function Home() {
   console.log("pricesData", pricesData);
   return (
     <main className="flex min-h-screen flex-row items-center left-0 flex-wrap justify-center lg:justify-start">
-      <AppForm
-        spotsData={spotsData}
-        pricingData={pricesData}
-        generalData={general}
-      />
-      <Background spotsData={spotsData} />
+      <SpotProvider>
+        <AppForm
+          spotsData={spotsData}
+          pricingData={pricesData}
+          generalData={general}
+        />
+        <BackgroundWrapper spotsData={spotsData} />
+      </SpotProvider>
     </main>
   );
 }
