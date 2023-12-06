@@ -29,6 +29,7 @@ export function AppDateRangePicker(props: AppDateRangePickerProps) {
     dialogProps,
     calendarProps,
   } = useDateRangePicker(props, state, ref);
+  console.log("rendering");
 
   return (
     <div className="relative inline-flex flex-col text-left w-full">

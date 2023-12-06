@@ -42,15 +42,17 @@ export default async function Home() {
   const general = await getGeneral();
   console.log("pricesData", pricesData);
   return (
-    <main className="flex min-h-screen flex-row items-center left-0 flex-wrap justify-center lg:justify-start">
-      <SpotProvider>
-        <AppForm
-          spotsData={spotsData}
-          pricingData={pricesData}
-          generalData={general}
-        />
-        <BackgroundWrapper spotsData={spotsData} />
-      </SpotProvider>
+    <main className="min-h-screen">
+      <div className="flex min-h-screen flex-row lg:items-center left-0 flex-wrap justify-center lg:justify-start relative h-full">
+        <SpotProvider>
+          <AppForm
+            spotsData={spotsData}
+            pricingData={pricesData}
+            generalData={general}
+          />
+          <BackgroundWrapper spotsData={spotsData} />
+        </SpotProvider>
+      </div>
     </main>
   );
 }

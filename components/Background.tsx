@@ -5,6 +5,7 @@ import Spots from "./Spots";
 import { SpotsData } from "@/app/page";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useMediaSize } from "@/utils/useMediaSize";
+import { Acotaciones } from "./Acotaciones";
 
 type BackgroundProps = {
   spotsData?: SpotsData;
@@ -18,10 +19,10 @@ export default function Background({ spotsData, onClick }: BackgroundProps) {
   return (
     <>
       {isExtraLargeDevice && (
-        <MediumBackground spotsData={spotsData} onClick={onClick} />
+        <ExtraLargeBackground spotsData={spotsData} onClick={onClick} />
       )}
       {isLargeDevice && (
-        <MediumBackground spotsData={spotsData} onClick={onClick} />
+        <LargeBackground spotsData={spotsData} onClick={onClick} />
       )}
       {isMediumDevice && (
         <SmallBackground spotsData={spotsData} onClick={onClick} />
@@ -38,25 +39,58 @@ function computeX() {
   return -screenWidth * 1.1 + 1400;
 }
 
-function MediumBackground({ spotsData, onClick }: BackgroundProps) {
+function ExtraLargeBackground({ spotsData, onClick }: BackgroundProps) {
+  const ref = useRef<SVGSVGElement>(null);
+  useSpotsInjectData({ spotsData });
+  const handleClick = getOnClick({ onClick, ref });
+
+  return (
+    <>
+      <div className="absolute top-0 left-0 flex flex-row justify-center w-full">
+        <Spots
+          // className="w-11/12"
+          ref={ref}
+          onClick={handleClick}
+          viewBox={`-500 -50 1000 1200`}
+          style={{
+            width: "calc(min(1500px, 90%))",
+            height: "calc(max(100vh, 900px))",
+            // height: "100vh",
+            // transform: "translateX(calc(-20px - 20vw))",
+          }}
+        />
+        <Acotaciones className="absolute bottom-0  m-5" />
+      </div>
+    </>
+    // <Spots
+    //   className="w-[110vw] h-[100vh] fixed top-0 -translate-x-20"
+    //   ref={ref}
+    // />
+  );
+}
+
+function LargeBackground({ spotsData, onClick }: BackgroundProps) {
   const ref = useRef<SVGSVGElement>(null);
   useSpotsInjectData({ spotsData });
   useSpotsResize({ ref });
   const handleClick = getOnClick({ onClick, ref });
 
   return (
-    <Spots
-      className="fixed top-0"
-      ref={ref}
-      onClick={handleClick}
-      viewBox={`${computeX()} -50 1000 1100`}
-      style={{
-        width: "2000px",
-        height: "calc(max(100vh, 700px))",
-        // height: "100vh",
-        // transform: "translateX(calc(-20px - 20vw))",
-      }}
-    />
+    <>
+      <Spots
+        className="fixed top-0 left-0"
+        ref={ref}
+        onClick={handleClick}
+        viewBox={`${computeX()} -50 1000 1200`}
+        style={{
+          width: "2000px",
+          height: "calc(max(100vh, 700px))",
+          // height: "100vh",
+          // transform: "translateX(calc(-20px - 20vw))",
+        }}
+      />
+      <Acotaciones className="fixed bottom-0 right-0 m-5" />
+    </>
     // <Spots
     //   className="w-[110vw] h-[100vh] fixed top-0 -translate-x-20"
     //   ref={ref}
@@ -70,21 +104,24 @@ function SmallBackground({ spotsData, onClick }: BackgroundProps) {
   const handleClick = getOnClick({ onClick, ref });
 
   return (
-    <Spots
-      className=" w-[100%] top-0"
-      ref={ref}
-      viewBox="100 -148 800 1500"
-      // viewBox={`1000 -50 1000 1100`}
-      onClick={handleClick}
-      style={
-        {
-          // width: "2000px",
-          // height: "calc(max(100vh, 700px))",
-          // height: "100vh",
-          // transform: "translateX(calc(-20px - 20vw))",
+    <>
+      <Spots
+        className=""
+        ref={ref}
+        viewBox="100 -50 800 1050"
+        // viewBox={`1000 -50 1000 1100`}
+        onClick={handleClick}
+        style={
+          {
+            // width: "2000px",
+            // height: "calc(max(100vh, 700px))",
+            // height: "100vh",
+            // transform: "translateX(calc(-20px - 20vw))",
+          }
         }
-      }
-    />
+      />
+      <Acotaciones className="rounded-none" />
+    </>
   );
 }
 
