@@ -12,6 +12,7 @@ import { SpotContext } from "@/features/spots";
 import { AppFormProps, BoatKind } from "./AppForm";
 import { useTexts } from "@/features/translation";
 import useMyLocale from "@/utils/useMyLocale";
+import range from "@/utils/range";
 const currencyMap = {
   "es-MX": "MXN",
   "en-US": "USD",
@@ -75,7 +76,7 @@ export function InnerForm({
 
   return (
     <form
-      className="p-2 flex flex-col gap-2 "
+      className="lg:p-2 flex flex-col gap-2 w-[80%] lg:min-w-[400px]"
       onSubmit={(ev) => {
         ev.preventDefault();
       }}
@@ -85,8 +86,8 @@ export function InnerForm({
         minValue={today(getLocalTimeZone())}
         state={rangeDateState}
       />
-      <div className="flex flex-row justify-end">
-        <InputGroup
+      <div className="flex flex-row justify-start items-end">
+        {/* <InputGroup
           label={t("piesInput")}
           inputProps={{
             id: "pies",
@@ -99,9 +100,32 @@ export function InnerForm({
               setPiesString(ev.currentTarget.value);
             },
           }}
+        /> */}
+        <SelectGroup
+          label={t("piesInput")}
+          options={range(10, 65).map((val) => {
+            return {
+              display: String(val),
+              value: String(val),
+            };
+          })}
+          inputProps={{
+            id: "pies",
+            // className: `text-right ${piesHasError ? "outline-red-400" : ""}`,
+            className: `-mx-3`,
+            value: piesString,
+            // onChange: handleInputChange,
+            onChange: (ev) => {
+              //TODO: deleting the string comma sends you to the last character
+              setPiesString(ev.currentTarget.value);
+            },
+          }}
         />
         <SelectGroup
           label={t("tipoDeBarcoInput")}
+          labelProps={{
+            className: "ml-6",
+          }}
           options={[
             {
               display: "Mono Hull",
@@ -118,6 +142,7 @@ export function InnerForm({
           ]}
           inputProps={{
             id: "tipo-de-barco",
+            className: "mx-3",
             onChange: (ev) => {
               const val = ev.currentTarget.value;
               setBoatKind(val as BoatKind);

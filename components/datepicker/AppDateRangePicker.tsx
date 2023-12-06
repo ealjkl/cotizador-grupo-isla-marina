@@ -30,7 +30,6 @@ export function AppDateRangePicker(props: AppDateRangePickerProps) {
     dialogProps,
     calendarProps,
   } = useDateRangePicker(props, state, ref);
-  console.log("rendering");
 
   return (
     <div className="relative inline-flex flex-col text-left w-full">
@@ -43,9 +42,14 @@ export function AppDateRangePicker(props: AppDateRangePickerProps) {
         h-10
         items-center
         "
+          onClick={(ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            buttonProps.onPress && buttonProps.onPress(ev as any);
+          }}
         >
           <DateField {...startFieldProps} />
-          <span aria-hidden="true" className="px-2">
+          <span aria-hidden="true" className="px-2 ml-2">
             –
           </span>
           <DateField {...endFieldProps} />

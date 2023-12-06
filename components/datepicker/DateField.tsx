@@ -20,11 +20,12 @@ export function DateField(props: DateFieldProps): JSX.Element {
     createCalendar,
   });
 
-  let ref = useRef<HTMLDivElement>(null);
-  let { fieldProps } = useDateField(props, state, ref);
+  // let ref = useRef<HTMLDivElement>(null);
+  // let { fieldProps } = useDateField(props, state, ref);
 
   return (
-    <div {...fieldProps} ref={ref} className="flex">
+    // <div {...fieldProps} ref={ref} className="flex">
+    <div className="flex">
       {state.segments.map((segment, i) => (
         <DateSegment key={i} segment={segment} state={state} />
       ))}
@@ -33,15 +34,15 @@ export function DateField(props: DateFieldProps): JSX.Element {
 }
 
 function DateSegment({ segment, state }: DateSegmentProps): JSX.Element {
-  let ref = useRef<HTMLDivElement>(null);
-  let { segmentProps } = useDateSegment(segment, state, ref);
+  // let ref = useRef<HTMLDivElement>(null);
+  // let { segmentProps } = useDateSegment(segment, state, ref);
 
   return (
     <div
-      {...segmentProps}
-      ref={ref}
+      // {...segmentProps}
+      // ref={ref}
       style={{
-        ...segmentProps.style,
+        // ...segmentProps.style,
         minWidth:
           segment.maxValue != null
             ? String(segment.maxValue).length + "ch"
