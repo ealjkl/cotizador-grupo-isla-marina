@@ -128,7 +128,7 @@ function MediumVersion({
   console.log("renderig medium");
   return (
     <>
-      <h2 className="text-6xl m-14">{t("cotizar")}</h2>
+      <h2 className="text-6xl m-14 text-center">{t("cotizar")}</h2>
       <Modal isOpen={isOpen}>
         <AriaDialog>
           <Heading>{t("cotizar")}</Heading>
@@ -200,7 +200,7 @@ function SmallVersion({
   const { t } = useTexts();
   return (
     <>
-      <h2 className="text-6xl m-4">{t("cotizar")}</h2>
+      <h2 className="text-6xl m-4 text-center">{t("cotizar")}</h2>
       {/* <Acotaciones /> */}
       <Dialog.Root open={selected != null}>
         <Dialog.Overlay />
