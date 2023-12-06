@@ -57,7 +57,7 @@ export function AppDateRangePicker(props: AppDateRangePickerProps) {
         </div>
       </div>
       {state.isOpen && (
-        <Popover triggerRef={ref} state={state} placement="bottom start">
+        <Popover triggerRef={ref} state={state} placement="bottom end">
           <Dialog {...dialogProps} title="Date">
             <RangeCalendar {...calendarProps} />
           </Dialog>

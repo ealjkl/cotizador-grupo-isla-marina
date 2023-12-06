@@ -3,6 +3,7 @@ import Background from "@/components/Background";
 import BackgroundWrapper from "@/components/BackgroundWrapper";
 import { SpotProvider } from "@/features/spots";
 import getSpots, { getGeneral, getPrices } from "@/utils/getData";
+import { getExchange } from "@/utils/getExchange";
 
 export type SpotsData = {
   [spotNumber: string]: {
@@ -39,7 +40,10 @@ async function getMockStpotData(): Promise<SpotsData> {
 export default async function Home() {
   const spotsData = await getSpots();
   const pricesData = await getPrices();
-  const general = await getGeneral();
+  let general = await getGeneral();
+  const exchange = await getExchange();
+  console.log("exchange", exchange);
+  general = { ...general, exchange };
   console.log("pricesData", pricesData);
   return (
     <main className="min-h-screen">

@@ -125,6 +125,7 @@ function MediumVersion({
   const { selected, setSelected } = useContext(SpotContext)!;
   const { t } = useTexts();
   const isOpen = selected != null;
+  console.log("renderig medium");
   return (
     <>
       <h2 className="text-6xl m-14">{t("cotizar")}</h2>
@@ -255,12 +256,13 @@ function ContentSpotNotSelected({
   pricingData,
   spotsData,
 }: ContentSpotNotSelectedProps) {
+  const { t } = useTexts();
   return (
     <>
       <div
         className={`bg-lime-700 lg:bg-opacity-80 px-2 py-8 sm:p-8 row-auto lg:rounded-2xl z-10 lg:mx-[calc(20%)] justify-self-center w-full lg:w-80 h-[100vh] lg:h-fit flex flex-col flex-wrap justify-end sm:justify-center items-center relative`}
       >
-        <h2 className="text-3xl">Selecciona un amarre para cotizar.</h2>
+        <h2 className="text-3xl">{t("selecciona")}</h2>
       </div>
     </>
   );

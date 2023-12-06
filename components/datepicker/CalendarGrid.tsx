@@ -1,11 +1,12 @@
 import { useCalendarGrid, useLocale } from "react-aria";
 import { getWeeksInMonth } from "@internationalized/date";
 import { CalendarCell } from "./CalendarCell";
-import { locale } from "./myLocale";
+import useMyLocale from "@/utils/useMyLocale";
 
 export function CalendarGrid({ state, ...props }: any) {
   // let { locale } = useLocale();
   let { gridProps, headerProps, weekDays } = useCalendarGrid(props, state);
+  const locale = useMyLocale();
 
   // Get the number of weeks in the month so we can render the proper number of rows.
   let weeksInMonth = getWeeksInMonth(state.visibleRange.start, locale);

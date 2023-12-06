@@ -10,6 +10,12 @@ import { InputGroup } from "./InputGroup";
 import useNumericValue from "@/utils/useNumericValue";
 import { SpotContext } from "@/features/spots";
 import { AppFormProps, BoatKind } from "./AppForm";
+import { useTexts } from "@/features/translation";
+import useMyLocale from "@/utils/useMyLocale";
+const currencyMap = {
+  "es-MX": "MXN",
+  "en-US": "USD",
+} as const;
 
 export function InnerForm({
   generalData,
@@ -45,7 +51,7 @@ export function InnerForm({
     hasError: piesHasError,
     errors,
   } = useNumericValue({
-    initialValue: 100,
+    initialValue: 10,
     maxValue: maxPies,
     minValue: minPies,
   });
@@ -56,13 +62,16 @@ export function InnerForm({
       pricingMapping[boatKind] +
     0;
 
-  const message = `Hola! Me gustaría reservar un lote ${
-    !piesHasError ? `de ${pies} pies` : ""
-  } ${
-    hasSelectedDateRange
-      ? `del ${rangeDateState.value?.start?.toString()} al ${rangeDateState.value?.end?.toString()}`
-      : ""
-  } `;
+  const { t } = useTexts();
+
+  const message = t("message")({
+    pies: String(pies),
+    piesHasError,
+    hasSelectedDateRange,
+    startDate: rangeDateState.value?.start?.toString(),
+    endDate: rangeDateState.value?.end?.toString(),
+  });
+  const locale = useMyLocale();
 
   return (
     <form
@@ -72,13 +81,13 @@ export function InnerForm({
       }}
     >
       <AppDateRangePicker
-        label="Estancia:"
+        label={t("estanciaInput")}
         minValue={today(getLocalTimeZone())}
         state={rangeDateState}
       />
       <div className="flex flex-row justify-end">
         <InputGroup
-          label="Pies del barco:"
+          label={t("piesInput")}
           inputProps={{
             id: "pies",
             type: "text",
@@ -92,7 +101,7 @@ export function InnerForm({
           }}
         />
         <SelectGroup
-          label="Tipo de barco:"
+          label={t("tipoDeBarcoInput")}
           options={[
             {
               display: "Mono Hull",
@@ -119,9 +128,16 @@ export function InnerForm({
       <section className="flex flex-row justify-end">
         {
           <p className="text-5xl my-7">
-            {rangeDateState.isInvalid ? formatMoney(0) : formatMoney(price)}
+            {formatMoney(
+              rangeDateState.isInvalid ? 0 : price,
+              locale,
+              (generalData as any).exchange
+            )}
           </p>
         }
+        <p className="pb-2 self-end mb-2">
+          {currencyMap[locale as keyof typeof currencyMap]}
+        </p>
         {/* <p className="text-5xl my-7">{formatMoney(price)}</p> */}
       </section>
       <WhatsappButton
@@ -130,7 +146,7 @@ export function InnerForm({
         target="_blank"
         className="bg-sky-900 hover:bg-sky-800 rounded-full py-2 text-xl uppercase font-bold px-6 self-center"
       >
-        Reservar
+        {t("reservar")}
       </WhatsappButton>
     </form>
   );

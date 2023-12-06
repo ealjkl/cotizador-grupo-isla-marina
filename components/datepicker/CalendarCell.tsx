@@ -7,7 +7,7 @@ import {
 } from "react-aria";
 import { isSameDay, getDayOfWeek } from "@internationalized/date";
 import { CalendarState, RangeCalendarState } from "react-stately";
-import { locale } from "./myLocale";
+import useMyLocale from "@/utils/useMyLocale";
 
 type ExtraProps = Parameters<typeof useCalendarCell>[0];
 type CalendarDate = ExtraProps["date"];
@@ -27,6 +27,7 @@ export function CalendarCell({ state, date }: CalendarCellProps) {
     formattedDate,
     isInvalid,
   } = useCalendarCell({ date }, state, ref);
+  const locale = useMyLocale();
 
   // The start and end date of the selected range will have
   // an emphasized appearance.
@@ -41,7 +42,6 @@ export function CalendarCell({ state, date }: CalendarCellProps) {
   // the first day of each week, and the start date of the selection.
   // We add rounded corners on the right for the last day of the month,
   // the last day of each week, and the end date of the selection.
-  // let { locale } = useLocale();
   let dayOfWeek = getDayOfWeek(date, locale);
   let isRoundedLeft =
     isSelected && (isSelectionStart || dayOfWeek === 0 || date.day === 1);

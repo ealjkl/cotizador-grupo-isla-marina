@@ -10,18 +10,21 @@ import { createCalendar } from "@internationalized/date";
 import { CalendarButton } from "./Button";
 import { CalendarGrid } from "./CalendarGrid";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
-import { locale } from "./myLocale";
+import useMyLocale from "@/utils/useMyLocale";
+
 
 type RangeCalendarProps = {} & ExtraProps;
 type ExtraProps = Parameters<typeof useRangeCalendar>[0];
-const dateFormatter = new Intl.DateTimeFormat(locale, {
-  year: "numeric",
-  month: "long",
-  // dateStyle: "short",
-});
 
 export function RangeCalendar(props: RangeCalendarProps) {
   // let { locale } = useLocale();
+  const locale = useMyLocale();
+  const dateFormatter = new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    // dateStyle: "short",
+  });
+
   let state = useRangeCalendarState({
     ...props,
     locale,
