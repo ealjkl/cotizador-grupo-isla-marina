@@ -1,7 +1,8 @@
 "use client";
 import { MouseEventHandler, RefObject, useEffect, useRef } from "react";
 // import Spots from "../public/vectores-marina-wbg4.svg";
-import Spots from "./Spots";
+// import Spots from "./Spots";
+import Spots from "./SpotsUpgraded2";
 import { SpotsData } from "@/app/page";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useMediaSize } from "@/utils/useMediaSize";
@@ -113,6 +114,7 @@ function SmallBackground({ spotsData, onClick }: BackgroundProps) {
         onClick={handleClick}
         style={
           {
+            // height: "auto",
             // width: "2000px",
             // height: "calc(max(100vh, 700px))",
             // height: "100vh",
@@ -146,24 +148,30 @@ function useSpotsInjectData({ spotsData }: BackgroundProps) {
   useEffect(() => {
     const spots = document.querySelector("#vectores-de-formas")!;
     for (const child of spots.children) {
+      if (!child?.id.startsWith("vector")) {
+        continue;
+      }
       const spotId = child.id.split("-")[1];
+      console.log("spotId", spotId);
       const available = (spotsData && spotsData[spotId].available) ?? "ocupado";
-
+      console.log("available", available);
       const path = child.children[0] as HTMLElement | SVGElement;
+      console.log("path", path);
       path.dataset["number"] = spotId;
+      console.log("path", path);
       path.dataset["available"] = available;
       path.dataset["eltype"] = "area";
     }
     const numbers = document.querySelector("#Numeros")!;
+    console.log("numbers", numbers);
     for (const child of numbers?.children) {
+      console.log("child", child);
       const spotId = child.id;
       const available =
         (spotsData && spotsData[spotId]?.available) ?? "ocupado";
-
       const path = child?.firstChild?.firstChild?.firstChild as
         | HTMLElement
         | SVGElement;
-
       path.dataset["number"] = spotId;
       path.dataset["available"] = available;
       path.dataset["eltype"] = "number-label";

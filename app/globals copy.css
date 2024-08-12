@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: white;
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  margin: 0;
+  padding: 0;
+  /* background-image: url("/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+}
+
+#vectores-de-formas path {
+  opacity: 0.6;
+  /* fill-opacity: 0.3; */
+  stroke: #082f49;
+  stroke-opacity: 1;
+  stroke-width: 3px;
+}
+
+#vectores-de-formas path:hover {
+  fill: #666;
+  /* stroke: #7dd3fc; */
+  /* stroke-width: 2px; */
+  stroke-opacity: 1;
+  cursor: pointer;
+}
+
+#Numeros path {
+  pointer-events: none;
+  stroke: black;
+}
+
+#Numeros > g > g > g:nth-child(2) > path {
+  stroke: white;
+  fill: white;
+}
+
+#vectores-de-formas [data-available="ocupado"] {
+  /* fill: #ef4444; */
+  fill: white;
+}
+
+#vectores-de-formas [data-available="disponible"] {
+  /* fill: #22c55e; */
+  fill: white;
+}
+
+#vectores-de-formas path:not([data-available]) {
+  fill: white;
+  /* opacity: 0.6; */
+}
+
+/* Numeros  */
+#Numeros [data-available="ocupado"] {
+  fill: #b91c1c;
+}
+
+#Numeros [data-available="disponible"] {
+  fill: #15803d;
+}
+
+#Numeros path:not([data-available]) {
+  fill: #082f49;
+}
